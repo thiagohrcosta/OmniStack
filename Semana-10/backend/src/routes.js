@@ -19,7 +19,7 @@ routes.get('/devs', async (request, response) => {
     const location = {
         type: 'Point',
         coordinates: [longitude, latitude],
-    }
+    };
 
     const dev = await Dev.create({
         github_username,
@@ -28,7 +28,7 @@ routes.get('/devs', async (request, response) => {
         bio,
         techs: techsArray,
         location,
-    });
+    })
 
     return response.json(dev);
 });
