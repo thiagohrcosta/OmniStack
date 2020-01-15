@@ -2,6 +2,8 @@ const express = require('express');
 
 const app = express()
 
+app.use(express.json());
+
 // Métodos HTTP: GET, POST, PUT, DELETE
 
 // Tipos de parâmetros:
