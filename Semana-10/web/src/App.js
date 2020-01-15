@@ -6,155 +6,42 @@ import './App.css';
 import './Sidebar.css';
 import './Main.css';
 
+import DevItem from './components/DevItem';
+import DevForm from './components/DevForm';
+
 function App() {
+  const [devs, setDevs] = useState([]);
 
-  const[github_username, setGithubUsername] = useState('');
-  const[techs, setTechs] = useState('');
+  useEffect(() => {
+    async function loadDevs(){
+      const response = await api.get('/devs');
 
-  const[latitude, setLatitude] = useState('');
-  const[longitude, setLongitude] = useState('');
+      setDevs(response.data);
+    }
 
-  useEffect(() =>{
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-
-        setLatitude(latitude);
-        setLongitude(longitude);
-      },
-      (err) => {
-        console.log(err);
-      },
-      {
-        timeout: 30000,
-      }
-    );
+    loadDevs();
   }, []);
 
-  async function handleAddDev(e){
-    e.preventDefault();
+  async function handleAddDev(data){
+    const response = await api.post('./devs', data)
 
-    const response = await api.post('./devs', {
-      github_username,
-      techs,
-      latitude,
-      longitude,
-    })
-
-    console.log(response.data);
+    setDevs([...devs, response.data]);
   }
 
   return (
     <div id="app">
       <aside>
         <strong>Cadastrar</strong>
-        <form>
-          <div className="input-block">
-          <label htmlFor="github_username">Usuário do Github</label>
-          <input 
-            name="github_username" 
-            id="github_username" 
-            required 
-            value={github_username}
-            onChange={e => setGithubUsername(e.target.value)}
-            />
-          </div>
-
-          <div className="input-block">
-          <label htmlFor="techs">Tecnologias</label>
-          <input 
-            name="techs" 
-            id="techs" 
-            required 
-            value={techs}
-            onChange={e => setTechs(e.target.value)}
-            />
-          </div>
-
-          <div className="input-group">
-           <div className="input-block">
-          <label htmlFor="latitude">Latitude</label>
-          <input 
-            type="number" 
-            name="latitude" 
-            id="latitude" 
-            required 
-            value={latitude}
-            onChange={e => setLatitude(e.target.value)}
-             />
-          </div>
-
-          <div className="input-block">
-            <label htmlFor="longitude">Longitude</label>
-            <input 
-              type="number" 
-              name="longitude" 
-              id="longitude" 
-              required 
-              value={longitude} 
-              onChange={e => setLongitude(e.target.value)}
-
-              />
-          </div>
-          </div>
-
-          <button type="submit">Salvar</button> 
-
-        </form>
+        <DevForm onSubmit={handleAddDev} />
       </aside>
 
       <main>
         <ul>
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars3.githubusercontent.com/u/28869405?s=460&v=4" alt="Thiago Costa" />
-              <div className="user-info">
-                <strong>Thiago Costa</strong>
-                <span>ReactJS, React Native, Node.js</span>
-              </div>
-            </header>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vestibulum bibendum nisl non varius. Phasellus a est quis nulla feugiat sollicitudin. </p>
-            <a href="https://github.com/thiagohrcosta">Acessar perfil no Github</a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars3.githubusercontent.com/u/28869405?s=460&v=4" alt="Thiago Costa" />
-              <div className="user-info">
-                <strong>Thiago Costa</strong>
-                <span>ReactJS, React Native, Node.js</span>
-              </div>
-            </header>
-            <p>Informações sobre o perfil.</p>
-            <a href="https://github.com/thiagohrcosta">Acessar perfil no Github</a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars3.githubusercontent.com/u/28869405?s=460&v=4" alt="Thiago Costa" />
-              <div className="user-info">
-                <strong>Thiago Costa</strong>
-                <span>ReactJS, React Native, Node.js</span>
-              </div>
-            </header>
-            <p>Informações sobre o perfil.</p>
-            <a href="https://github.com/thiagohrcosta">Acessar perfil no Github</a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars3.githubusercontent.com/u/28869405?s=460&v=4" alt="Thiago Costa" />
-              <div className="user-info">
-                <strong>Thiago Costa</strong>
-                <span>ReactJS, React Native, Node.js</span>
-              </div>
-            </header>
-            <p>Informações sobre o perfil.</p>
-            <a href="https://github.com/thiagohrcosta">Acessar perfil no Github</a>
-          </li>
+          {devs.map(dev => (
+            <DevItem key={dev._id} dev={dev} />
+          ))}
         </ul>
       </main>
-
     </div>
   );
 }
