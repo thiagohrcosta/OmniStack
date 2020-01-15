@@ -1,10 +1,10 @@
-const Dev = require( '../models/Dev.js' );
-const parseStringAsArray = require( '../utils/parseStringAsArray.js' );
+const Dev = require( '../models/Dev' );
+const parseStringAsArray = require( '../utils/parseStringAsArray' );
 
 
 module.exports = {
 
-    async indexedDB(request, response) {
+    async index(request, response) {
         const { latitude, longitude, techs} = request.query;
 
         const techsArray = parseStringAsArray(techs);
