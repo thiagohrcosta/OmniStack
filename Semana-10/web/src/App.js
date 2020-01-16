@@ -6,8 +6,8 @@ import './App.css';
 import './Sidebar.css';
 import './Main.css';
 
-import DevItem from './components/DevItem';
 import DevForm from './components/DevForm';
+import DevItem from './components/DevItem';
 
 function App() {
   const [devs, setDevs] = useState([]);
@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   async function handleAddDev(data){
-    const response = await api.post('./devs', data)
+    const response = await api.post('./devs', data);
 
     setDevs([...devs, response.data]);
   }
