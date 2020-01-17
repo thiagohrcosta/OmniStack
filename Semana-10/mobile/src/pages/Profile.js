@@ -1,7 +1,7 @@
 import React from 'react';
-import { view } from 'react-native';
+import { View } from 'react-native';
 
-function Profielw() {
+function Profile() {
     return <View />
 }
 
