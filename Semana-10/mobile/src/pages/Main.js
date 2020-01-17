@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, View, Text} from 'react-native'
 import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 
-function Main() {
+function Main( { navigation }) {
     const [currentRegion, setCurrentRegion] = useState(null);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ function Main() {
 
             if (granted){
                 const {coords} = await getCurrentPositionAsync({
-                    enableHighAccuracy: false,
+                    enableHighAccuracy: true,
                 });
 
                 const { latitude, longitude } = coords;
@@ -22,7 +22,7 @@ function Main() {
                     longitude,
                     latitudeDelta: 0.04,
                     longitudeDelta: 0.04,
-                })
+                });
             }
         }
 
@@ -38,10 +38,13 @@ function Main() {
         <Marker coordinate={ { latitude: -27.211164, longitude: -49.6374491 }}>
             <Image style={styles.avatar} source={{ uri: 'https://avatars3.githubusercontent.com/u/28869405?s=460&v=4' }}></Image>
             
-            <Callout>
+            <Callout onPress={() => {
+                navigation.navigation('Profile', { github_username: 'diego3g' });
+
+            }}>
                 <View style={styles.callout}>
                     <Text style={styles.devName}>Diego Fernandes</Text>
-                    <Text style={StyleSheet.devBio}>CTO na @ROcketseat.</Text>
+                    <Text style={Style.devBio}>CTO na @ROcketseat.</Text>
                     <Text style={style.devTechs}>ReactJS, React Native, Node.js</Text>
                 </View>
 
@@ -62,6 +65,26 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         borderColor: 4,
     },
+
+    callout: {
+        width: 260,
+    },
+    devName: {
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    devBio: {
+        color: '#666',
+        marginTop: 5,
+    },
+
+    devTechs: {
+        color: '#666',
+        marginTop: 5,
+    }
+
+
+
 })
 
 export default Main;
