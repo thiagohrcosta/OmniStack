@@ -16,7 +16,7 @@ mongoose.connect('mongodb+srv://Thiago:omnistack123456@cluster0-z0kfu.mongodb.ne
     useUnifiedTopology: true,
 });
 
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 app.use(routes);
 
