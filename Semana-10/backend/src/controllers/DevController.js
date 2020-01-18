@@ -40,6 +40,11 @@ module.exports ={
                 techs: techsArray,
                 location
             })
+
+            // Filtrar as conexções que estão há no máximo 10km de distância
+            // e que o novo Dev tenha pelo menos uma das tecnologias filtradas
+
+            
         }
        
         return response.json(dev);
