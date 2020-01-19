@@ -40,7 +40,7 @@ Uma vez iniciado o processo com <code> yarn start </code>, automaticamente será
 Este projeto **FRONTEND** foi desenvolvido na aula 03, cujo início dos códigos se deu [aqui](https://github.com/thiagohrcosta/OmniStack/commit/8bc578d4b302246c7ecf1d20176753f0ae4a0e25).<br>
 
 
-Por fim, inicie o **Mobile do React Native**, inicialmente altere o arquivo <code>src/services/api.js</code> para o endereço do seu servidor, posteriormente execute os comandos:
+Por fim, inicie o **MOBILE DO REACT NATIVE**, inicialmente altere o arquivo <code>src/services/api.js</code> para o endereço do seu servidor, posteriormente execute os comandos:
 
 ```sh
 $ yarn global add install expo-cli
@@ -49,6 +49,7 @@ $ yarn install
 $ yarn start
 ```
 
+## Licença 
 
-
+[MIT](https://github.com/thiagohrcosta/OmniStack/blob/master/LICENSE.md) © 2020 
 
